@@ -35,8 +35,6 @@ extension Array {
     }
 }
 
-// let path = "/Users/panxp/Desktop/UserInfoModel.swift"
-
 let path = CommandLine.arguments[1]
 let openMode = CommandLine.arguments[safe: 2]
 let mode: RePublicRewriter.Mode = openMode != nil ? .open : .public
@@ -49,7 +47,7 @@ if FileManager.default.fileExists(atPath: path, isDirectory: &isDir) {
         while let filePath = directoryEnum?.nextObject() as? String {
             let fullPath = path + "/" + filePath
             if fullPath.hasSuffix(".swift") {
-                rePublic(path: path, mode: mode)
+                rePublic(path: fullPath, mode: mode)
             }
         }
     }

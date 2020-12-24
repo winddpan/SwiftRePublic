@@ -10,7 +10,7 @@
 		404DA313259467A600DF6442 /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 404DA312259467A600DF6442 /* SwiftSyntax */; };
 		404DA315259467A600DF6442 /* SwiftSyntaxBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 404DA314259467A600DF6442 /* SwiftSyntaxBuilder */; };
 		404DA31825947AAB00DF6442 /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 404DA31725947AAB00DF6442 /* lib_InternalSwiftSyntaxParser.dylib */; };
-		404DA31A25947ABD00DF6442 /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 404DA31725947AAB00DF6442 /* lib_InternalSwiftSyntaxParser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		404DA31A25947ABD00DF6442 /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 404DA31725947AAB00DF6442 /* lib_InternalSwiftSyntaxParser.dylib */; };
 		404DA31D25949E3E00DF6442 /* ModifierDeclSyntaxProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404DA31C25949E3E00DF6442 /* ModifierDeclSyntaxProtocol.swift */; };
 		404DA31F25949F5F00DF6442 /* RePublicRewriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404DA31E25949F5F00DF6442 /* RePublicRewriter.swift */; };
 		40AAAF33259341BB003A1489 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AAAF32259341BB003A1489 /* main.swift */; };
@@ -21,7 +21,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolderSpec = 6;
 			files = (
 				404DA31A25947ABD00DF6442 /* lib_InternalSwiftSyntaxParser.dylib in Embed Libraries */,
 			);
@@ -43,6 +43,7 @@
 		404DA31725947AAB00DF6442 /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
 		404DA31C25949E3E00DF6442 /* ModifierDeclSyntaxProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierDeclSyntaxProtocol.swift; sourceTree = "<group>"; };
 		404DA31E25949F5F00DF6442 /* RePublicRewriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RePublicRewriter.swift; sourceTree = "<group>"; };
+		40A5D0262594AE5900E45630 /* SwiftRePublic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftRePublic.entitlements; sourceTree = "<group>"; };
 		40AAAF2F259341BB003A1489 /* SwiftRePublic */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftRePublic; sourceTree = BUILT_PRODUCTS_DIR; };
 		40AAAF32259341BB003A1489 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,6 +81,7 @@
 		40AAAF31259341BB003A1489 /* SwiftRePublic */ = {
 			isa = PBXGroup;
 			children = (
+				40A5D0262594AE5900E45630 /* SwiftRePublic.entitlements */,
 				404DA31725947AAB00DF6442 /* lib_InternalSwiftSyntaxParser.dylib */,
 				40AAAF32259341BB003A1489 /* main.swift */,
 				404DA31C25949E3E00DF6442 /* ModifierDeclSyntaxProtocol.swift */,
@@ -282,13 +284,18 @@
 		40AAAF37259341BB003A1489 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = SwiftRePublic/SwiftRePublic.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SwiftRePublic",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -296,13 +303,18 @@
 		40AAAF38259341BB003A1489 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = SwiftRePublic/SwiftRePublic.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SwiftRePublic",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
