@@ -51,6 +51,16 @@
             ReferencedContainer = "container:SwiftRePublic.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "/Users/panxp/Development/huajian-dev/MessedModel/Sources/APIModel/GuardListInfo.swift"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/panxp/Desktop/GuardListInfo.swift"
+            isEnabled = "NO">
+         </CommandLineArgument>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

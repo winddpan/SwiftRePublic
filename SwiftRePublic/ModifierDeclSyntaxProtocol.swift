@@ -9,7 +9,7 @@ import Foundation
 import SwiftSyntax
 
 protocol ModifierDeclSyntaxProtocol: DeclSyntaxProtocol {
-    var modifiers: ModifierListSyntax? { get set }
+    var modifiers: ModifierListSyntax? { get }
 
     /// Adds the provided `Modifier` to the node's `modifiers`
     /// collection.
@@ -39,6 +39,12 @@ extension FunctionDeclSyntax: ModifierDeclSyntaxProtocol {
     }
 }
 
+extension InitializerDeclSyntax: ModifierDeclSyntaxProtocol {
+    static var openAvaiable: Bool {
+        return false
+    }
+}
+
 extension EnumDeclSyntax: ModifierDeclSyntaxProtocol {
     static var openAvaiable: Bool {
         return false
@@ -57,7 +63,7 @@ extension ClassDeclSyntax: ModifierDeclSyntaxProtocol {
     }
 }
 
-extension InitializerDeclSyntax: ModifierDeclSyntaxProtocol {
+extension ProtocolDeclSyntax: ModifierDeclSyntaxProtocol {
     static var openAvaiable: Bool {
         return false
     }

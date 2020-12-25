@@ -16,38 +16,41 @@ func rePublic(path: String, mode: RePublicRewriter.Mode) {
         if result.contentLength.utf8Length > 0 {
             try result.description.write(to: url, atomically: true, encoding: String.Encoding.utf8)
         }
-        print(result)
     } catch {
-        print(error)
+        print("rePublic", error)
     }
 }
 
-extension Array {
-    subscript(safe index: Index) -> Element? {
-        get {
-            return indices.contains(index) ? self[index] : nil
+func handyJSONInit(path: String) {
+    do {
+        let url = URL(fileURLWithPath: path)
+        let sourceFile = try SyntaxParser.parse(url)
+        let result = HandyJSONInitRewriter().visit(sourceFile)
+        if result.contentLength.utf8Length > 0 {
+            try result.description.write(to: url, atomically: true, encoding: String.Encoding.utf8)
         }
-        set {
-            if indices.contains(index), let value = newValue {
-                self[index] = value
-            }
-        }
+    } catch {
+        print("handyJSONInit", error)
     }
 }
 
-let path = CommandLine.arguments[1]
+let path = CommandLine.arguments[safe: 1]
 let openMode = CommandLine.arguments[safe: 2]
 let mode: RePublicRewriter.Mode = openMode != nil ? .open : .public
 var isDir: ObjCBool = false
-if FileManager.default.fileExists(atPath: path, isDirectory: &isDir) {
+if let path = path, FileManager.default.fileExists(atPath: path, isDirectory: &isDir) {
     if !isDir.boolValue, path.lowercased().hasSuffix(".swift") {
+        print(path)
         rePublic(path: path, mode: mode)
+        handyJSONInit(path: path)
     } else {
         let directoryEnum = FileManager.default.enumerator(atPath: path)
         while let filePath = directoryEnum?.nextObject() as? String {
             let fullPath = path + "/" + filePath
             if fullPath.hasSuffix(".swift") {
+                print(fullPath)
                 rePublic(path: fullPath, mode: mode)
+                handyJSONInit(path: fullPath)
             }
         }
     }

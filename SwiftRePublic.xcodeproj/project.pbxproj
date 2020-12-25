@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4021FBD525959676000772EA /* HandyJSONInitRewriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4021FBD425959676000772EA /* HandyJSONInitRewriter.swift */; };
+		4021FBD825959754000772EA /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4021FBD725959754000772EA /* Util.swift */; };
+		4021FBDB2595C455000772EA /* MemberDeclSyntaxProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4021FBDA2595C455000772EA /* MemberDeclSyntaxProtocol.swift */; };
 		404DA313259467A600DF6442 /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 404DA312259467A600DF6442 /* SwiftSyntax */; };
 		404DA315259467A600DF6442 /* SwiftSyntaxBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 404DA314259467A600DF6442 /* SwiftSyntaxBuilder */; };
 		404DA31825947AAB00DF6442 /* lib_InternalSwiftSyntaxParser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 404DA31725947AAB00DF6442 /* lib_InternalSwiftSyntaxParser.dylib */; };
@@ -40,10 +43,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4021FBD425959676000772EA /* HandyJSONInitRewriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandyJSONInitRewriter.swift; sourceTree = "<group>"; };
+		4021FBD725959754000772EA /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		4021FBDA2595C455000772EA /* MemberDeclSyntaxProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberDeclSyntaxProtocol.swift; sourceTree = "<group>"; };
 		404DA31725947AAB00DF6442 /* lib_InternalSwiftSyntaxParser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = lib_InternalSwiftSyntaxParser.dylib; sourceTree = "<group>"; };
 		404DA31C25949E3E00DF6442 /* ModifierDeclSyntaxProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierDeclSyntaxProtocol.swift; sourceTree = "<group>"; };
 		404DA31E25949F5F00DF6442 /* RePublicRewriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RePublicRewriter.swift; sourceTree = "<group>"; };
-		40A5D0262594AE5900E45630 /* SwiftRePublic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftRePublic.entitlements; sourceTree = "<group>"; };
 		40AAAF2F259341BB003A1489 /* SwiftRePublic */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftRePublic; sourceTree = BUILT_PRODUCTS_DIR; };
 		40AAAF32259341BB003A1489 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,11 +86,13 @@
 		40AAAF31259341BB003A1489 /* SwiftRePublic */ = {
 			isa = PBXGroup;
 			children = (
-				40A5D0262594AE5900E45630 /* SwiftRePublic.entitlements */,
 				404DA31725947AAB00DF6442 /* lib_InternalSwiftSyntaxParser.dylib */,
 				40AAAF32259341BB003A1489 /* main.swift */,
-				404DA31C25949E3E00DF6442 /* ModifierDeclSyntaxProtocol.swift */,
 				404DA31E25949F5F00DF6442 /* RePublicRewriter.swift */,
+				4021FBD425959676000772EA /* HandyJSONInitRewriter.swift */,
+				4021FBD725959754000772EA /* Util.swift */,
+				404DA31C25949E3E00DF6442 /* ModifierDeclSyntaxProtocol.swift */,
+				4021FBDA2595C455000772EA /* MemberDeclSyntaxProtocol.swift */,
 			);
 			path = SwiftRePublic;
 			sourceTree = "<group>";
@@ -155,7 +162,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4021FBD525959676000772EA /* HandyJSONInitRewriter.swift in Sources */,
 				40AAAF33259341BB003A1489 /* main.swift in Sources */,
+				4021FBDB2595C455000772EA /* MemberDeclSyntaxProtocol.swift in Sources */,
+				4021FBD825959754000772EA /* Util.swift in Sources */,
 				404DA31F25949F5F00DF6442 /* RePublicRewriter.swift in Sources */,
 				404DA31D25949E3E00DF6442 /* ModifierDeclSyntaxProtocol.swift in Sources */,
 			);

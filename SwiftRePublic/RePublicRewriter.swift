@@ -27,27 +27,43 @@ class RePublicRewriter: SyntaxRewriter {
     }
 
     override func visit(_ node: FunctionDeclSyntax) -> DeclSyntax {
-        return super.visit(fixDeclNode(node))
+        if node.shouldPublic {
+            return super.visit(publicDeclNode(node))
+        } else {
+            return super.visit(unPublicDeclNode(node))
+        }
     }
 
     override func visit(_ node: VariableDeclSyntax) -> DeclSyntax {
-        return super.visit(fixDeclNode(node))
+        if node.shouldPublic {
+            return super.visit(publicDeclNode(node))
+        } else {
+            return super.visit(unPublicDeclNode(node))
+        }
     }
 
-    override func visit(_ node: EnumDeclSyntax) -> DeclSyntax {
-        return super.visit(fixDeclNode(node))
-    }
-
-    override func visit(_ node: StructDeclSyntax) -> DeclSyntax {
-        return super.visit(fixDeclNode(node))
-    }
-
-    override func visit(_ node: ClassDeclSyntax) -> DeclSyntax {
-        return super.visit(fixDeclNode(node))
+    override func visit(_ node: ProtocolDeclSyntax) -> DeclSyntax {
+        return super.visit(publicDeclNode(node))
     }
 
     override func visit(_ node: InitializerDeclSyntax) -> DeclSyntax {
-        return super.visit(fixDeclNode(node))
+        if node.shouldPublic {
+            return super.visit(publicDeclNode(node))
+        } else {
+            return super.visit(unPublicDeclNode(node))
+        }
+    }
+
+    override func visit(_ node: EnumDeclSyntax) -> DeclSyntax {
+        return super.visit(publicDeclNode(node))
+    }
+
+    override func visit(_ node: StructDeclSyntax) -> DeclSyntax {
+        return super.visit(publicDeclNode(node))
+    }
+
+    override func visit(_ node: ClassDeclSyntax) -> DeclSyntax {
+        return super.visit(publicDeclNode(node))
     }
 }
 
@@ -64,7 +80,27 @@ extension RePublicRewriter {
         return DeclModifierSyntax { $0.useName(token) }
     }
 
-    private func fixDeclNode<T: ModifierDeclSyntaxProtocol>(_ node: T) -> T {
+    private func unPublicDeclNode<T: ModifierDeclSyntaxProtocol>(_ node: T) -> T {
+        var node = node
+        if var modifiers = node.modifiers {
+            let oldLeadingTrivia = node.leadingTrivia
+            node = node.withoutLeadingTrivia()
+
+            for (i, modify) in modifiers.enumerated() {
+                if [TokenKind.publicKeyword, TokenKind.openKeyword].contains(modify.name.tokenKind) {
+                    modifiers = modifiers.removing(childAt: i)
+                }
+            }
+            node = node.withModifiers(modifiers)
+
+            if let oldLeadingTrivia = oldLeadingTrivia {
+                node = node.withLeadingTrivia(oldLeadingTrivia)
+            }
+        }
+        return node
+    }
+
+    private func publicDeclNode<T: ModifierDeclSyntaxProtocol>(_ node: T) -> T {
         let oldLeadingTrivia = node.leadingTrivia
         var node = node.withoutLeadingTrivia()
         if var modifiers = node.modifiers {
@@ -87,5 +123,67 @@ extension RePublicRewriter {
             node = node.withLeadingTrivia(oldLeadingTrivia)
         }
         return node
+    }
+}
+
+extension ModifierDeclSyntaxProtocol {
+    private var ifPrivateModifier: Bool {
+        let list: [TokenKind] = [.privateKeyword, .fileprivateKeyword]
+        if let modifiers = modifiers, modifiers.contains(where: { m in list.contains(where: { $0 == m.name.tokenKind }) }) {
+            return true
+        }
+        return false
+    }
+
+    var shouldPublic: Bool {
+        // Function/Closure
+        if _syntaxNode.parentFunctionDeclSyntax != nil {
+            return false
+        }
+        
+        // Class/Struct/Enum, find one if marked `private`
+        var prt: ModifierDeclSyntaxProtocol? = _syntaxNode.parentClassDeclSyntax
+        while prt != nil {
+            if prt?.ifPrivateModifier == true {
+                return false
+            }
+            prt = prt?._syntaxNode.parentClassDeclSyntax
+        }
+        return true
+    }
+}
+
+extension Syntax {
+    // Function/Closure
+    var parentFunctionDeclSyntax: SyntaxProtocol? {
+        var prt: Syntax? = parent
+        while prt != nil {
+            if let r = prt?.as(FunctionDeclSyntax.self) {
+                return r
+            }
+            if let r = prt?.as(ClosureSignatureSyntax.self) {
+                return r
+            }
+            prt = prt?.parent
+        }
+        return nil
+    }
+
+    // Class/Struct/Enum
+    var parentClassDeclSyntax: ModifierDeclSyntaxProtocol? {
+        var prt: Syntax? = parent
+        while prt != nil {
+            if let r = prt?.as(ClassDeclSyntax.self) {
+                return r
+            }
+            if let r = prt?.as(StructDeclSyntax.self) {
+                return r
+            }
+            if let r = prt?.as(EnumDeclSyntax.self) {
+                return r
+            }
+            prt = prt?.parent
+        }
+        return nil
     }
 }
