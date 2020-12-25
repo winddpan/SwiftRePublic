@@ -53,7 +53,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/panxp/Development/huajian-dev/MessedModel/Sources/APIModel/GuardListInfo.swift"
+            argument = "/Users/panxp/Development/huajian-dev/MessedModel/Sources/"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

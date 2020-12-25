@@ -8,7 +8,7 @@
 import Foundation
 import SwiftSyntax
 
-protocol MemberDeclSyntaxProtocol: DeclSyntaxProtocol {
+protocol MemberDeclSyntaxProtocol: ModifierDeclSyntaxProtocol {
     var inheritanceClause: TypeInheritanceClauseSyntax? { get }
     var members: MemberDeclBlockSyntax { get }
     func withMembers(_ newChild: MemberDeclBlockSyntax?) -> Self

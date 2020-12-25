@@ -34,3 +34,22 @@ extension Trivia {
         return 0
     }
 }
+
+
+extension ModifierDeclSyntaxProtocol {
+    var isPublicModifier: Bool {
+        let list: [TokenKind] = [.publicKeyword, .openKeyword]
+        if let modifiers = modifiers, modifiers.contains(where: { m in list.contains(where: { $0 == m.name.tokenKind }) }) {
+            return true
+        }
+        return false
+    }
+
+//    private var isPrivateModifier: Bool {
+//        let list: [TokenKind] = [.privateKeyword, .fileprivateKeyword]
+//        if let modifiers = modifiers, modifiers.contains(where: { m in list.contains(where: { $0 == m.name.tokenKind }) }) {
+//            return true
+//        }
+//        return false
+//    }
+}

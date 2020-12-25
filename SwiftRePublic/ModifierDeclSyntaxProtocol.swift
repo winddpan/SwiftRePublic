@@ -68,3 +68,9 @@ extension ProtocolDeclSyntax: ModifierDeclSyntaxProtocol {
         return false
     }
 }
+
+extension TypealiasDeclSyntax: ModifierDeclSyntaxProtocol {
+    static var openAvaiable: Bool {
+        return false
+    }
+}

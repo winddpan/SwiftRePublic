@@ -20,11 +20,17 @@ class HandyJSONInitRewriter: SyntaxRewriter {
 
 private extension HandyJSONInitRewriter {
     private func memberVisit<T: MemberDeclSyntaxProtocol>(_ node: T) -> T {
-        // Has Initializer
+        // if public
+        guard node.isPublicModifier else {
+            return node
+        }
+
+        // has Initializer
         guard !node.members.members.contains(where: { m in m.children.contains { $0.is(InitializerDeclSyntax.self) } }) else {
             return node
         }
 
+        // if HandyJSON
         guard node.inheritanceClause?.children.contains(where: { $0.firstToken?.tokenKind.isHandyJSONToken == true }) == true else {
             return node
         }
@@ -65,7 +71,7 @@ private extension HandyJSONInitRewriter {
 private extension TokenKind {
     var isHandyJSONToken: Bool {
         switch self {
-        case let .identifier(id) where id == "JSONCodable" || id == "HandyJSON":
+        case let .identifier(id) where ["HandyJSON", "JSONCodable", "NIMChatRoomSignal"].contains(id):
             return true
         default:
             return false
